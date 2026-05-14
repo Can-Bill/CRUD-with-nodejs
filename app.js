@@ -1,6 +1,9 @@
+require('dotenv').config();
 const express = require('express')
 const mongoose = require('mongoose');
-const app = express()
+const app = express();
+const path = require('path');
+
 
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
@@ -8,7 +11,7 @@ const userRoutes = require('./routes/user');
 //mongodb+srv://admin:<db_password>@cluster0.ofs5ruz.mongodb.net/?appName=Cluster0
 
 //pour la connection a la base de donnée
-mongoose.connect("mongodb+srv://admin:HTlIWrrCEMeueKcb@cluster0.ofs5ruz.mongodb.net/?appName=Cluster0")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch((error) => console.log('Connexion à MongoDB échouée !', error));
 
@@ -27,5 +30,6 @@ app.use((req, res, next) => {
 //creation des middilewares
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app
