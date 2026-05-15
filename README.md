@@ -8,6 +8,7 @@ API REST construite avec Node.js, Express et MongoDB Atlas.
 ### 1. Cloner le repo
 
 git clone https://github.com/VOTRE-USERNAME/VOTRE-REPO.git
+
 cd VOTRE-REPO
 
 ### cree un fichier .env comme suit :
@@ -23,6 +24,10 @@ docker compose up --build
 ### acceder a l'API:
 
 http://localhost:3000
+
+### voir la documentation:
+
+http://localhost:3000/api-docs/#/
 
 ### pour arrêté les conteneurs:
 
