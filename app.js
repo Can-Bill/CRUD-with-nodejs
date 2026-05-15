@@ -8,7 +8,8 @@ const path = require('path');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 
-//mongodb+srv://admin:<db_password>@cluster0.ofs5ruz.mongodb.net/?appName=Cluster0
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./src/swagger");
 
 //pour la connection a la base de donnée
 mongoose.connect(process.env.MONGO_URI)
@@ -31,5 +32,6 @@ app.use((req, res, next) => {
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 module.exports = app

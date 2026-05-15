@@ -3,14 +3,12 @@ const fs = require('fs');
 
 
 exports.createThing = (req, res, next) => {
-   const thingObject = JSON.parse(req.body.thing);
-   delete thingObject._id;
-   delete thingObject._userId;
+   
    const thing = new Thing({
-       ...thingObject,
+       ...req.body,
        userId: req.auth.userId,
-       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-   });
+       imageUrl: req.body.imageUrl
+    });
  
    thing.save()
    .then(() => { res.status(201).json({message: 'Objet enregistré !'})})
